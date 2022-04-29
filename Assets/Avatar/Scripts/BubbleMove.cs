@@ -6,13 +6,22 @@ public class BubbleMove : MonoBehaviour
 {
 	private float speed = 4f;
 
+	public float maxSpeed ;
+
 	public Vector3 _directionVector;
 
 	public List<Vector3> _listVector;
 
-	public float time = 5f;
+	public float time = 4f;
 	float current = 0f;
 
+	private GameObject BubbleObj;		// Tag assign "Bubble"
+	public Color material1;
+	public Color material2;
+
+	public Shader Shader1;  // set standard shader
+
+	Rigidbody Rb;
 	
 
 	bool isAvailable = true;
@@ -33,12 +42,15 @@ public class BubbleMove : MonoBehaviour
 	void Start()
 	{
 		// move up
-		_directionVector = Vector3.up;		
+		Renderer rend = GameObject.FindGameObjectWithTag("Bubble").GetComponent<Renderer>();	
+		Rb = GetComponent<Rigidbody>();
+		
 		float sizemin = 0.5f;
 		float sizemax = 1.0f;
 		float bubbleD = Random.Range(sizemin, sizemax); // Size of the bubble
 
 		this.transform.localScale = new Vector3(bubbleD/10, bubbleD/10, bubbleD/10);
+		_directionVector = Vector3.up;
 
 	}
 
@@ -50,31 +62,50 @@ public class BubbleMove : MonoBehaviour
 			
 
 		 current += Time.deltaTime;
+		//  Debug.Log(current);
+
 		if(current > time)
 			{
-				gameObject.SetActive(false);
+				
 
-				// transform.localPosition = new Vector3(68.2610016f,0.976000011f,71.939003f)	;
-				transform.localPosition = 		bubblePosition.position;
-				current = 0f;
+				transform.localPosition = new Vector3(68.2610016f,0.976000011f,71.939003f)	;
+				// transform.localPosition = 		bubblePosition.position;
+				
+				Renderer rend = GameObject.FindGameObjectWithTag("Bubble").GetComponent<Renderer>();			
+				
+				if (rend.material.color == Color.red)
+				{
+					
+					rend.material.color = Color.blue;
+
+				} else
+				{									
+					rend.material.color = Color.red;
+				}				
+
+				current = 0f;	
+
 				
 			} 
-			else if (  (gameObject.active) == true )
+
+			else if (  (gameObject.activeSelf) == true && current < time )
 			{
-				this.gameObject.GetComponent<Rigidbody>().AddForce(_directionVector * Time.deltaTime * speed);
+				Vector3 force = _directionVector * Time.deltaTime * speed ;	
+				this.gameObject.GetComponent<Rigidbody>().AddForce(force);	
+
+			} 
+
+			if(Rb.velocity.magnitude > maxSpeed)
+			{
+				Rb.velocity = 	Vector3.ClampMagnitude(Rb.velocity,maxSpeed);
 			}
 
-			
+			float rbVelocity = Rb.velocity.magnitude ;
+			// Debug.Log(rbVelocity); 
+
 	}
 
 	
-
-	
-	
-	 
-
-
-
 
 
 }

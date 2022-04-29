@@ -15,6 +15,8 @@ public class CreatBubble : MonoBehaviour
 
         public Transform bubblePosition;
 
+        [SerializeField] public GameObject bubblePrefab_Moving;
+
         bool isAvailable = true;
 
 
@@ -40,7 +42,11 @@ public class CreatBubble : MonoBehaviour
                         // GameObject obj = Instantiate(bubblePrefab, new Vector3(68.2610016f,0.976000011f,71.939003f), Quaternion.identity);
                         
                         // Working before load
-                        GameObject obj = Instantiate(bubblePrefab, bubblePosition.position, Quaternion.identity);
+                        // GameObject obj = Instantiate(bubblePrefab, new Vector3(0,0,10),Quaternion.identity) as GameObject;
+                        // obj.name = obj.name.Replace("(Clone)", "");
+
+                        GameObject obj = bubblePrefab_Moving;
+                        obj.transform.position = new Vector3(0f,0f,10f);
 
                         // load resource
                         // GameObject Prefab = (GameObject)Resources.Load("Sphere");
