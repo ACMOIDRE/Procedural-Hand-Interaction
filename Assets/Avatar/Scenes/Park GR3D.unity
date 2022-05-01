@@ -705,6 +705,10 @@ PrefabInstance:
       propertyPath: mParentComp
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1257660004, guid: 1dcb5c59b44b25345b46cb78f577f01c, type: 3}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 745509439829639553, guid: 1dcb5c59b44b25345b46cb78f577f01c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0288
